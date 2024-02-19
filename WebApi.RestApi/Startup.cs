@@ -3,6 +3,8 @@ using WebApi.Infrastructure.Data;
 using Autofac;
 using WebApi.Infrastructure.CrossCutting.IOC;
 using Microsoft.EntityFrameworkCore;
+using WebApi.RestApi.Filters;
+using FluentValidation.AspNetCore;
 
 namespace WebApi.RestApi
 {
@@ -21,6 +23,8 @@ namespace WebApi.RestApi
             var connection = Configuration["SqlConnection:SqlConnectionString"];
             services.AddDbContext<SqlContext>(options => options.UseSqlServer(connection));
             services.AddControllers();
+            services.AddMvc(options => options.Filters.Add(typeof(ModelStateValidatorFilter)));
+            services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Application.Validations.ClientValidation>());
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API Model DDD", Version = "v1" });
