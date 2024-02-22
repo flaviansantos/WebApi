@@ -14,7 +14,7 @@ namespace WebApi.Application.Mappers
         private void ProductMap()
         {
             CreateMap<ProductDto, Product>()
-                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(x => x.Id))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(x => x.Name))
                 .ForMember(dest => dest.ProductValue, opt => opt.MapFrom(x => x.ProductValue))
                 .ForMember(dest => dest.IsAvailable, opt => opt.Ignore());
