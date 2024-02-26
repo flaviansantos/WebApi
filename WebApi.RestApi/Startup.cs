@@ -50,6 +50,11 @@ namespace WebApi.RestApi
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "API Model DDD");
             });
 
+            app.UseCors(x => x
+           .AllowAnyOrigin()
+           .AllowAnyMethod()
+           .AllowAnyHeader());
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
